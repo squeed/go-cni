@@ -18,6 +18,7 @@ package cni
 
 import (
 	"context"
+	"errors"
 
 	cnilibrary "github.com/containernetworking/cni/libcni"
 	types100 "github.com/containernetworking/cni/pkg/types/100"
@@ -42,7 +43,11 @@ func (n *Network) Remove(ctx context.Context, ns *Namespace) error {
 }
 
 func (n *Network) Check(ctx context.Context, ns *Namespace) error {
-	return n.cni.CheckNetworkList(ctx, n.config, ns.config(n.ifName))
+	err := n.cni.CheckNetworkList(ctx, n.config, ns.config(n.ifName))
+	if err != nil && errors.Is(err, cnilibrary.ErrorCheckNotSupp) {
+		return nil
+	}
+	return err
 }
 
 type Namespace struct {
