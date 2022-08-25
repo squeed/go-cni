@@ -44,7 +44,7 @@ func (n *Network) Remove(ctx context.Context, ns *Namespace) error {
 
 func (n *Network) Check(ctx context.Context, ns *Namespace) error {
 	err := n.cni.CheckNetworkList(ctx, n.config, ns.config(n.ifName))
-	if err != nil && errors.Is(err, cnilibrary.ErrorCheckNotSupp) {
+	if err != nil && errors.Is(err, cnilibrary.ErrorCheckNotSupp) { // don't return error if check isn't supported
 		return nil
 	}
 	return err
