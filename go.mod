@@ -13,3 +13,5 @@ require (
 	github.com/stretchr/objx v0.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+replace github.com/containernetworking/cni => github.com/squeed/cni v0.3.1-0.20220825143800-04a39a03f7fb
